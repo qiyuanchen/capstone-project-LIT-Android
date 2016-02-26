@@ -3,6 +3,7 @@ package com.android.flamingo.litnyc.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 0;
     private boolean map;
     private static final String temp="123@123";
+    private SharedPreferences pref=null;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -99,6 +101,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        pref=getSharedPreferences("com.android.flamingo.litnyc",MODE_PRIVATE);
+
     }
 
     private void populateAutoComplete() {
@@ -367,6 +371,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
+        }
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(pref.getBoolean("isLogged",true)){
+            // TODO FIRST RUN
+            pref.edit().putBoolean("isLogged",false).commit();
         }
     }
 }
