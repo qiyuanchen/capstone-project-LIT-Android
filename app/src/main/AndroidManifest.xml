@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-   
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyBBBe3Ozdmsv7EZ_fKjVGx1yoNl-YTIFhA" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
