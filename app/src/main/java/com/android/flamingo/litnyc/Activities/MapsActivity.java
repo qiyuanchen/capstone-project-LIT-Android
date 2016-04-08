@@ -18,10 +18,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,LocationListener {
 
     private GoogleMap mMap;
     private LocationManager locationManager;
+    private LatLng currentL;
     private static final long MIN_TIME = 400;
     private static final float MIN_DISTANCE = 1000;
 
@@ -40,16 +43,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+        try {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
+        }catch(SecurityException e){
+
+        }
         mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        currentL=latLng;
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
         mMap.animateCamera(cameraUpdate);
-        locationManager.removeUpdates(this);
+        try {
+            locationManager.removeUpdates(this);
+        }catch(SecurityException e){
+
+        }
     }
 
     @Override
@@ -73,8 +85,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        try {
+            mMap.setMyLocationEnabled(true);
+        }catch(SecurityException e){
 
-        mMap.setMyLocationEnabled(true);
+        }
 
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(40.774469978400354, -73.95962310306663)));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(40.76217,-73.966129)));
+
+    }
+    public String formRequest(){
+        return "";
+    }
+    public void populateNearby(List<Data.Location> nearby){
+        for(Data.Location itt:nearby){
+            mMap.addMarker(new MarkerOptions().position(new LatLng(itt.getLatitude(),itt.getLongitude())));
+        }
     }
 }

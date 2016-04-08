@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         Typeface osan=Typeface.createFromAsset(getAssets(),"fonts/OpenSans-LightItalic.ttf");
         mPasswordView.setTypeface(osan);

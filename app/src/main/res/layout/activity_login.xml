@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.LoginActivity">
+    tools:context=".Activities.LoginActivity"
+    android:background="#464646">
 
     <!-- Login progress -->
     <ProgressBar
@@ -32,8 +33,9 @@
             >
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="200dp"
                 android:id="@+id/logo"
+                android:src="@drawable/logo"
                 />
 
             <android.support.design.widget.TextInputLayout
@@ -50,7 +52,8 @@
                     android:text="123@123"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:fontFamily=""/>
+                    android:fontFamily=""
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -63,13 +66,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
+                    android:textColorHint="@color/login"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:text="123123"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/login"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -79,9 +84,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="70dp"
-                android:text="@string/action_sign_in"
+                android:text="@string/action_sign_in_short"
                 android:textStyle="bold"
-                android:background="#b3fa53b2"
+                android:background="#ff7640"
                 android:textColor="#ffffff"
                 />
 
