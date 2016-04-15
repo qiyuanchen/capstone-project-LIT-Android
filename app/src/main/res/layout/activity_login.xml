@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.LoginActivity"
-    android:background="#464646">
+    android:background="@drawable/login_background3">
 
     <!-- Login progress -->
     <ProgressBar
@@ -46,27 +46,32 @@
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:text="123@123"
                     android:maxLines="1"
+                    android:paddingLeft="5dp"
                     android:singleLine="true"
                     android:fontFamily=""
+                    android:background="@drawable/round_textfield"
+                    android:textColor="@color/white"
                     />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false">
 
                 <EditText
                     android:id="@+id/password"
+                    android:paddingLeft="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="@string/prompt_password"
-                    android:textColorHint="@color/login"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
@@ -74,7 +79,8 @@
                     android:maxLines="1"
                     android:text="123123"
                     android:singleLine="true"
-                    android:textColor="@color/login"/>
+                    android:background="@drawable/round_textfield"
+                    android:textColor="@color/white"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -86,8 +92,8 @@
                 android:layout_marginTop="70dp"
                 android:text="@string/action_sign_in_short"
                 android:textStyle="bold"
-                android:background="#ff7640"
-                android:textColor="#ffffff"
+                android:background="@drawable/round_edge_button"
+                android:textColor="#464646"
                 />
 
         </LinearLayout>
