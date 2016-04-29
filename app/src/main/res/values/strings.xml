@@ -13,6 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="mapbox_token">pk.eyJ1IjoibnlsaXQiLCJhIjoiY2luN3F5N28zMGZ3YXZmbHp3cnVxdnk4ZSJ9.jeotJxbSbqEIefmsDQAwuQ</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
