@@ -209,7 +209,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SettingsActivity.callMe(this);
     }
     private void startMapsActivity(){
-        MapsActivity.callMe(this);
+        mapBox_activity.callMe(this);
     }
 
     /**
