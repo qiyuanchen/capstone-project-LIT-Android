@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyBBBe3Ozdmsv7EZ_fKjVGx1yoNl-YTIFhA" />
@@ -58,9 +57,11 @@
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Activities.preference_activity" />
-        <activity android:name=".Activities.mapBox_activity"></activity>
+        <activity android:name=".Activities.mapBox_activity" />
+
         <service android:name="com.mapbox.mapboxsdk.telemetry.TelemetryService" />
 
+        <activity android:name=".Activities.new_account_activity"></activity>
     </application>
 
 </manifest>

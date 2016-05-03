@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,11 @@ import com.android.flamingo.litnyc.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Network.EndPoints;
+import Network.NetworkHelper;
+import Network.login_request;
+import Network.login_response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -357,6 +363,71 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
+    }
+    public void sign_up(View v){
+        UserSignUpTask task=new UserSignUpTask(mEmailView)
+        task.execute()
+    }
+    public class UserSignUpTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserSignUpTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            if(mEmail.equals("")||mPassword.equals("")){
+                return false;
+            }
+            login_request request = new login_request(mEmail,mPassword);
+            try {
+                login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
+                        .create(EndPoints.class).create(request);
+                Log.d("result",response.result);
+            }catch(Exception e){
+                e.printStackTrace(System.out);
+                return false;
+            }
+
+
+
+            // TODO: register the new account here.
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                finish();
+
+                startMapsActivity();
+
+            } else {
+                if(mEmail.equals("")){
+                    mEmailView.setError(getString(R.string.error_field_required));
+                    mPasswordView.requestFocus();
+                }
+                else {
+                    mPasswordView.setError(getString(R.string.error_field_required));
+                    mPasswordView.requestFocus();
+                }
             }
         }
 
