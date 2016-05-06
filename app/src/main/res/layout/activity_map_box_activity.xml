@@ -25,6 +25,7 @@
         android:orientation="vertical"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
         android:gravity="center"
+        android:clipToPadding="true"
         >
         <TextView
             android:layout_width="match_parent"
@@ -32,8 +33,6 @@
             android:id="@+id/location_name"
             android:text="Event Name"
             />
-
-
 
     </LinearLayout>
 
