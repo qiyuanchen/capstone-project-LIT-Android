@@ -28,7 +28,7 @@ public class NetworkHelper {
     public static final String JSON_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final int    CONNECT_TIMEOUT  = 99999;
     public static final int    READ_TIMEOUT     = 99999;
-    public static final String BASE_URL         = "http://www.ec2-52-5-152-106.compute-1.amazonaws.com:8080/lit";
+    public static final String BASE_URL         = "http://ec2-52-5-152-106.compute-1.amazonaws.com:8080/lit";
     private static OkClient instance;
     public static RestAdapter makeRequestAdapter(Context context)
     {

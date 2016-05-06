@@ -52,16 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-    private boolean map;
-    private static final String temp="123@123";
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world","123@123.com:123123"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -172,7 +163,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -326,25 +317,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+            login_request request = new login_request(mEmail,mPassword);
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
+                        .create(EndPoints.class).login(request);
+                if(response.result==null||response.result.equals("")){
+                    showProgress(false);
+                    return false;
+                }
+            }catch(Exception e){
+                e.printStackTrace(System.out);
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    //TODO get rid of this when shared pref is set up
-                    if(pieces[0]==temp){
-                        map=true;
-                    }
-                    // Account exists, return true if the password matches.
-
-                    return pieces[1].equals(mPassword);
-                }
-            }
 
             // TODO: register the new account here.
             return true;
@@ -385,7 +370,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -410,11 +395,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            UserSignUpTask task=new UserSignUpTask(email,password);
+            task.execute();
+
         }
-        UserSignUpTask task=new UserSignUpTask(email,password);
-        task.execute();
+
     }
     public class UserSignUpTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -430,12 +415,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-
+            boolean result=true;
             login_request request = new login_request(mEmail,mPassword);
             try {
                 login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
                         .create(EndPoints.class).create(request);
-                Log.d("result", response.result);
+                if(response.result.equals("Already Exist")){
+                    result=false;
+                    showProgress(false);
+
+                }
             }catch(Exception e){
                 e.printStackTrace(System.out);
                 return false;
@@ -444,7 +433,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
             // TODO: register the new account here.
-            return true;
+            return result;
         }
 
         @Override
@@ -454,9 +443,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-
                 startMapsActivity();
 
+            }else{
+                mEmailView.setError("username already created");
             }
         }
 
