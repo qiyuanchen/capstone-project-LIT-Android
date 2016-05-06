@@ -17,7 +17,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
     private static final String DATABASE_FILE_NAME = "LIT";
     private static final int    VERSION            = 1;
     private static DatabaseHelper instance;
-    private final Class[] tableClasses = new Class[] {Location.class,user.class};
+    private final Class[] tableClasses = new Class[] {Location.class,user.class,user.Noise.class};
     private DatabaseHelper(Context context)
     {
 
@@ -69,7 +69,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
     public Dao<Location,String> getLocationDao() throws SQLException{
         return getDao(Location.class);
     }
-    public Dao<user,Integer> getUserDao() throws SQLException{
+    public Dao<user,String> getUserDao() throws SQLException{
         return getDao(user.class);
     }
 

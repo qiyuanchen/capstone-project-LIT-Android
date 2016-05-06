@@ -25,16 +25,22 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import Data.user;
+import db_tasks.user_tasks;
+
 public class mapBox_activity extends AppCompatActivity {
     private MapView mapView;
     private BottomSheetBehavior mBottomSheetBehavior;
     private static final String STYLEURL ="mapbox://styles/nylit/cin7s3yxo0019ajm053bzzhb1";
+    public static final String USER_ID ="USER_ID";
     private Icon cLMarker;
     private double longitude;
     private double latitude;
-    public static void callMe(Activity activity) {
+    private user current;
+    public static void callMe(Activity activity, String id) {
         Intent intent = new Intent(activity, mapBox_activity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(USER_ID,id);
         activity.startActivity(intent);
 
     }
@@ -43,6 +49,8 @@ public class mapBox_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_box_activity);
+        current= user_tasks.queryDB(getApplicationContext(),getIntent().getExtras().getString(USER_ID));
+        Log.d("user",current.toString());
         View bottomSheet= findViewById(R.id.location_detail);
         mBottomSheetBehavior=BottomSheetBehavior.from(bottomSheet);
         IconFactory iconFactory = IconFactory.getInstance(mapBox_activity.this);

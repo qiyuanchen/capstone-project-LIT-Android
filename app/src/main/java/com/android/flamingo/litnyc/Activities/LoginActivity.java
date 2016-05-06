@@ -36,10 +36,12 @@ import com.android.flamingo.litnyc.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Data.user;
 import Network.EndPoints;
 import Network.NetworkHelper;
 import Network.login_request;
 import Network.login_response;
+import db_tasks.user_tasks;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -63,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    user cur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,7 +209,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SettingsActivity.callMe(this);
     }
     private void startMapsActivity(){
-        mapBox_activity.callMe(this);
+        mapBox_activity.callMe(this,cur.getID());
     }
 
     /**
@@ -321,9 +324,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
                         .create(EndPoints.class).login(request);
-                if(response.result==null||response.result.equals("")){
+                if(response.result==null){
                     showProgress(false);
                     return false;
+                }else{
+                    user current= response.result;
+                    cur=current;
+                    user_tasks.updateDB(getApplicationContext(),current);
+
                 }
             }catch(Exception e){
                 e.printStackTrace(System.out);
@@ -420,10 +428,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
                         .create(EndPoints.class).create(request);
-                if(response.result.equals("Already Exist")){
+                if(response.result==null){
                     result=false;
                     showProgress(false);
 
+                }else{
+                    user current= response.result;
+                    cur=current;
+                    user_tasks.updateDB(getApplicationContext(),current);
                 }
             }catch(Exception e){
                 e.printStackTrace(System.out);
