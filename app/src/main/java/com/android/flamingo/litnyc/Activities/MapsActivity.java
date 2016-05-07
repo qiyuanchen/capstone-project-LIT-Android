@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import com.android.flamingo.litnyc.R;
 import com.google.android.gms.maps.CameraUpdate;
@@ -101,8 +100,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public String formRequest(){
         return "";
     }
-    public void populateNearby(List<Data.Location> nearby){
-        for(Data.Location itt:nearby){
+    public void populateNearby(List<com.android.flamingo.litnyc.Data.Location> nearby){
+        for(com.android.flamingo.litnyc.Data.Location itt:nearby){
             mMap.addMarker(new MarkerOptions().position(new LatLng(itt.getLatitude(),itt.getLongitude())));
         }
     }

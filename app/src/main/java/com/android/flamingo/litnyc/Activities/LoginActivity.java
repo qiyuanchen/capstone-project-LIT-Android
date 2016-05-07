@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,12 +36,14 @@ import com.android.flamingo.litnyc.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import Data.user;
-import Network.EndPoints;
-import Network.NetworkHelper;
-import Network.login_request;
-import Network.login_response;
-import db_tasks.user_tasks;
+import com.android.flamingo.litnyc.Data.user;
+import com.android.flamingo.litnyc.Network.EndPoints;
+import com.android.flamingo.litnyc.Network.NetworkHelper;
+import com.android.flamingo.litnyc.Network.login_request;
+import com.android.flamingo.litnyc.Network.login_response;
+import com.android.flamingo.litnyc.Utilities.GPS;
+
+import com.android.flamingo.litnyc.db_tasks.user_tasks;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     user cur;
+    double longitude,latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +212,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SettingsActivity.callMe(this);
     }
     private void startMapsActivity(){
-        mapBox_activity.callMe(this,cur.getID());
+        mapBox_activity.callMe(this,cur.getID(),longitude,latitude);
     }
 
     /**
@@ -330,7 +333,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }else{
                     user current= response.result;
                     cur=current;
-                    user_tasks.updateDB(getApplicationContext(),current);
+                    user_tasks.updateDB(getApplicationContext(), current);
 
                 }
             }catch(Exception e){
@@ -350,8 +353,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
+                GetMyLocation();
 
-                    startMapsActivity();
+                startMapsActivity();
 
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -436,6 +440,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     user current= response.result;
                     cur=current;
                     user_tasks.updateDB(getApplicationContext(),current);
+                    GetMyLocation();
                 }
             }catch(Exception e){
                 e.printStackTrace(System.out);
@@ -459,6 +464,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }else{
                 mEmailView.setError("username already created");
+                mEmailView.requestFocus();
             }
         }
 
@@ -467,6 +473,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+    private void GetMyLocation() {
+        GPS gps=new GPS(this);
+        Location current = gps.fetchLocation();
+        longitude=current.getLongitude();
+        latitude=current.getLatitude();
+
     }
 }
 

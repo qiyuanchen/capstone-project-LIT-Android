@@ -1,4 +1,4 @@
-package Network;
+package com.android.flamingo.litnyc.Network;
 
 /**
  * Created by Qiyuan on 5/2/2016.

@@ -1,6 +1,4 @@
-package Network;
-
-import android.accounts.NetworkErrorException;
+package com.android.flamingo.litnyc.Network;
 
 import retrofit.http.Body;
 import retrofit.http.Headers;

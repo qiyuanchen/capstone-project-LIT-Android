@@ -1,4 +1,4 @@
-package Network;
+package com.android.flamingo.litnyc.Network;
 
 import android.accounts.NetworkErrorException;
 import android.content.Context;

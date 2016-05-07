@@ -18,23 +18,6 @@
             mapbox:access_token="@string/mapbox_token" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/location_detail"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:orientation="vertical"
-        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-        android:gravity="center"
-        android:clipToPadding="true"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/location_name"
-            android:text="Event Name"
-            />
-
-    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

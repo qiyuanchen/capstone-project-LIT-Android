@@ -1,8 +1,8 @@
-package Network;
+package com.android.flamingo.litnyc.Network;
+
+import com.android.flamingo.litnyc.Data.Location;
 
 import java.util.List;
-
-import Data.Location;
 
 /**
  * Created by Qiyuan on 5/2/2016.

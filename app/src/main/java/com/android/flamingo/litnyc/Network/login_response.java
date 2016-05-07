@@ -1,6 +1,6 @@
-package Network;
+package com.android.flamingo.litnyc.Network;
 
-import Data.user;
+import com.android.flamingo.litnyc.Data.user;
 
 /**
  * Created by Qiyuan on 5/2/2016.

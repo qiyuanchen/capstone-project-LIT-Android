@@ -1,4 +1,4 @@
-package Data;
+package com.android.flamingo.litnyc.Data;
 
 import com.j256.ormlite.field.DatabaseField;
 
