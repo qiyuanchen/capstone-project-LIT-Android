@@ -72,6 +72,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
     public Dao<user,String> getUserDao() throws SQLException{
         return getDao(user.class);
     }
+    public Dao<user.Noise,Integer> getNoiseDao() throws SQLException{
+        return getDao(user.Noise.class);
+    }
 
 
 

@@ -18,13 +18,13 @@ public class user {
 
     // BINARY VALUES
     @DatabaseField
-    private String userName;
+    public String userName;
     @DatabaseField
-    private String password;
+    public String password;
     @DatabaseField
-    public Integer Accepts_Credit_Card;
+    public Integer Accepts_Credit_Cards;
     @DatabaseField
-    public Integer Good_For_Groups;
+    public Integer Good_for_Groups;
     @DatabaseField
     public Integer Has_TV;
     @DatabaseField
@@ -32,7 +32,7 @@ public class user {
     @DatabaseField
     public Integer Good_For_Dancing;
     @DatabaseField
-    public Integer Good_For_Kids;
+    public Integer Good_for_Kids;
     @DatabaseField
     public Integer Alcohol;
     @DatabaseField
@@ -40,7 +40,7 @@ public class user {
 
     // MULTI VALUED
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
-    public Noise NoiseLevel;
+    public Noise Noise_Level;
 
     //public Music_ Music;
 
@@ -55,9 +55,9 @@ public class user {
         public Integer Loud;
         @DatabaseField
         public Integer Very_Loud;
-        @Override
-        public String toString() {
-            return String.format("User[Quiet=%f, Average='%f', Loud='%f']", Quiet, Average,Loud);
+
+        public Noise(){
+
         }
     }
 
@@ -99,19 +99,19 @@ public class user {
     }
 
     public void newuser() {
-        Accepts_Credit_Card = 0;
-        Good_For_Groups = 0;
+        Accepts_Credit_Cards = 0;
+        Good_for_Groups = 0;
         Has_TV = 0;
         Happy_Hour = 0;
         Good_For_Dancing = 0;
-        Good_For_Kids = 0;
+        Good_for_Kids = 0;
         Alcohol = 0;
         Smoking = 0;
         new_user = true;
-        NoiseLevel.Average=0;
-        NoiseLevel.Loud=0;
-        NoiseLevel.Quiet=0;
-        NoiseLevel.Very_Loud=0;
+        Noise_Level.Average=0;
+        Noise_Level.Loud=0;
+        Noise_Level.Quiet=0;
+        Noise_Level.Very_Loud=0;
         //Music
 		/*
 		Music.Background=0;

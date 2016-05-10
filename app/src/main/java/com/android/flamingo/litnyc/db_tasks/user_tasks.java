@@ -37,4 +37,14 @@ public  class user_tasks {
         return current;
 
     }
+    public static boolean updateNoise(Context context,user.Noise noise){
+        try {
+            Dao<user.Noise, Integer> n = DatabaseHelper.getInstance(context).getNoiseDao();
+            n.createOrUpdate(noise);
+        }catch(SQLException e){
+            e.printStackTrace(System.out);
+            return false;
+        }
+        return true;
+    }
 }

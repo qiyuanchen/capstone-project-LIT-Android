@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.flamingo.litnyc.Network.result_response;
+import com.android.flamingo.litnyc.Network.results_request;
 import com.android.flamingo.litnyc.R;
 
 import java.util.ArrayList;
@@ -69,11 +72,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     user cur;
     double longitude,latitude;
+    private ArrayList<result_response.network_response> result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_login);
+        result=new ArrayList<>();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -212,7 +219,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         SettingsActivity.callMe(this);
     }
     private void startMapsActivity(){
-        mapBox_activity.callMe(this,cur.getID(),longitude,latitude);
+        mapBox_activity.callMe(this,cur.getID(),longitude,latitude,result);
     }
 
     /**
@@ -331,9 +338,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     showProgress(false);
                     return false;
                 }else{
-                    user current= response.result;
-                    cur=current;
-                    user_tasks.updateDB(getApplicationContext(), current);
+                    cur=parsetoDB(response);
+                    user_tasks.updateDB(getApplicationContext(), cur);
 
                 }
             }catch(Exception e){
@@ -353,8 +359,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-                GetMyLocation();
-
+                //GetMyLocation();
+                getResults();
                 startMapsActivity();
 
             } else {
@@ -437,10 +443,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     showProgress(false);
 
                 }else{
-                    user current= response.result;
-                    cur=current;
-                    user_tasks.updateDB(getApplicationContext(),current);
-                    GetMyLocation();
+                    cur=parsetoDB(response);
+                    user_tasks.updateDB(getApplicationContext(), cur);
+
                 }
             }catch(Exception e){
                 e.printStackTrace(System.out);
@@ -460,6 +465,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
+                //GetMyLocation();
+                getResults();
                 startMapsActivity();
 
             }else{
@@ -480,6 +487,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         longitude=current.getLongitude();
         latitude=current.getLatitude();
 
+    }
+    public user parsetoDB(login_response target){
+        user usr=new user();
+        usr.id=target.result.id;
+        usr.Accepts_Credit_Cards=target.result.Accepts_Credit_Cards;
+        usr.Alcohol=target.result.Alcohol;
+        usr.Good_For_Dancing=target.result.Good_For_Dancing;
+        usr.Good_for_Groups=target.result.Good_for_Groups;
+        usr.Good_for_Kids=target.result.Good_for_Kids;
+        usr.Happy_Hour=target.result.Happy_Hour;
+        usr.Has_TV=target.result.Has_TV;
+        user.Noise noise= new user.Noise();
+        noise.Average=target.result.Noise_Level.Average;
+        noise.Loud=target.result.Noise_Level.Loud;
+        noise.Quiet=target.result.Noise_Level.Quiet;
+        noise.Very_Loud=target.result.Noise_Level.Very_Loud;
+        user_tasks.updateNoise(this,noise);
+        usr.Noise_Level=noise;
+        usr.new_user=target.result.new_user;
+        usr.Smoking=target.result.Smoking;
+        usr.userName=target.result.userName;
+        usr.password=target.result.password;
+        return usr;
+
+    }
+    public void getResults(){
+        results_request request = new results_request(cur.id,mapBox_activity.TESTCOORDS.getLatitude(),mapBox_activity.TESTCOORDS.getLongitude());
+        try {
+            result_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
+                    .create(EndPoints.class).result(request);
+            result.addAll(response.result);
+        }catch(Exception e){
+            e.printStackTrace(System.out);
+
+        }
     }
 }
 
