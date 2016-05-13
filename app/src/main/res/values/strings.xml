@@ -80,4 +80,24 @@
     <string name="GPSAlertDialogMessage">Enable GPS or Network to continue</string>
     <string name="action_settings">Settings</string>
     <string name="cancel">Cancel</string>
+
+        <array
+            name="attributes">
+            <item>Accepts Credit Card</item>
+            <item>Good for Groups</item>
+            <item>Has TV</item>
+            <item>Good for Dancing</item>
+            <item>Happy Hour</item>
+            <item>Good for Kids</item>
+            <item>Alcohol</item>
+            <item>Smoking</item>
+            <item>Quiet</item>
+            <item>Average</item>
+            <item>Loud</item>
+            <item>Very Loud</item>
+
+
+
+        </array>
+
 </resources>

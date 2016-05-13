@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:inputType="textEmailAddress"
-                    android:text="smashing@ny"
+                    android:text="hunter@edu"
                     android:maxLines="1"
                     android:paddingLeft="5dp"
                     android:singleLine="true"

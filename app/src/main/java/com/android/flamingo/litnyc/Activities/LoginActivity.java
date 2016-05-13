@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     user cur;
-    double longitude,latitude;
+    double longitude, latitude;
     private ArrayList<result_response.network_response> result;
 
     @Override
@@ -80,12 +80,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_login);
-        result=new ArrayList<>();
+        result = new ArrayList<>();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
-        Typeface osan=Typeface.createFromAsset(getAssets(),"fonts/OpenSans-LightItalic.ttf");
+        Typeface osan = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-LightItalic.ttf");
         mPasswordView.setTypeface(osan);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -215,11 +215,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
-    private void startSettingsActivity(){
-        SettingsActivity.callMe(this);
+
+    private void startSettingsActivity() {
+        picker_activity.callMe(this);
     }
-    private void startMapsActivity(){
-        mapBox_activity.callMe(this,cur.getID(),longitude,latitude,result);
+
+    private void startMapsActivity() {
+        if (cur.new_user) {
+            startSettingsActivity();
+        } else {
+            mapBox_activity.callMe(this, cur.getID(), longitude, latitude, result);
+        }
     }
 
     /**
@@ -330,19 +336,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            login_request request = new login_request(mEmail,mPassword);
+            login_request request = new login_request(mEmail, mPassword);
             try {
                 login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
                         .create(EndPoints.class).login(request);
-                if(response.result==null){
+                if (response.result == null) {
                     showProgress(false);
                     return false;
-                }else{
-                    cur=parsetoDB(response);
+                } else {
+                    cur = parsetoDB(response);
                     user_tasks.updateDB(getApplicationContext(), cur);
 
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace(System.out);
                 return false;
             }
@@ -375,7 +381,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
-    public void sign_up(View v){
+
+    public void sign_up(View v) {
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -413,12 +420,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            UserSignUpTask task=new UserSignUpTask(email,password);
+            UserSignUpTask task = new UserSignUpTask(email, password);
             task.execute();
 
         }
 
     }
+
     public class UserSignUpTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -433,25 +441,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            boolean result=true;
-            login_request request = new login_request(mEmail,mPassword);
+            boolean result = true;
+            login_request request = new login_request(mEmail, mPassword);
             try {
                 login_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
                         .create(EndPoints.class).create(request);
-                if(response.result==null){
-                    result=false;
+                if (response.result == null) {
+                    result = false;
                     showProgress(false);
 
-                }else{
-                    cur=parsetoDB(response);
+                } else {
+                    cur = parsetoDB(response);
                     user_tasks.updateDB(getApplicationContext(), cur);
 
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace(System.out);
                 return false;
             }
-
 
 
             // TODO: register the new account here.
@@ -469,7 +476,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 getResults();
                 startMapsActivity();
 
-            }else{
+            } else {
                 mEmailView.setError("username already created");
                 mEmailView.requestFocus();
             }
@@ -481,44 +488,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+
     private void GetMyLocation() {
-        GPS gps=new GPS(this);
+        GPS gps = new GPS(this);
         Location current = gps.fetchLocation();
-        longitude=current.getLongitude();
-        latitude=current.getLatitude();
+        longitude = current.getLongitude();
+        latitude = current.getLatitude();
 
     }
-    public user parsetoDB(login_response target){
-        user usr=new user();
-        usr.id=target.result.id;
-        usr.Accepts_Credit_Cards=target.result.Accepts_Credit_Cards;
-        usr.Alcohol=target.result.Alcohol;
-        usr.Good_For_Dancing=target.result.Good_For_Dancing;
-        usr.Good_for_Groups=target.result.Good_for_Groups;
-        usr.Good_for_Kids=target.result.Good_for_Kids;
-        usr.Happy_Hour=target.result.Happy_Hour;
-        usr.Has_TV=target.result.Has_TV;
-        user.Noise noise= new user.Noise();
-        noise.Average=target.result.Noise_Level.Average;
-        noise.Loud=target.result.Noise_Level.Loud;
-        noise.Quiet=target.result.Noise_Level.Quiet;
-        noise.Very_Loud=target.result.Noise_Level.Very_Loud;
-        user_tasks.updateNoise(this,noise);
-        usr.Noise_Level=noise;
-        usr.new_user=target.result.new_user;
-        usr.Smoking=target.result.Smoking;
-        usr.userName=target.result.userName;
-        usr.password=target.result.password;
+
+    public user parsetoDB(login_response target) {
+        user usr = new user();
+        usr.id = target.result.id;
+        usr.Accepts_Credit_Cards = target.result.Accepts_Credit_Cards;
+        usr.Alcohol = target.result.Alcohol;
+        usr.Good_For_Dancing = target.result.Good_For_Dancing;
+        usr.Good_for_Groups = target.result.Good_for_Groups;
+        usr.Good_for_Kids = target.result.Good_for_Kids;
+        usr.Happy_Hour = target.result.Happy_Hour;
+        usr.Has_TV = target.result.Has_TV;
+        user.Noise noise = new user.Noise();
+        noise.Average = target.result.Noise_Level.Average;
+        noise.Loud = target.result.Noise_Level.Loud;
+        noise.Quiet = target.result.Noise_Level.Quiet;
+        noise.Very_Loud = target.result.Noise_Level.Very_Loud;
+        user_tasks.updateNoise(this, noise);
+        usr.Noise_Level = noise;
+        usr.new_user = target.result.new_user;
+        usr.Smoking = target.result.Smoking;
+        usr.userName = target.result.userName;
+        usr.password = target.result.password;
         return usr;
 
     }
-    public void getResults(){
-        results_request request = new results_request(cur.id,mapBox_activity.TESTCOORDS.getLatitude(),mapBox_activity.TESTCOORDS.getLongitude());
+
+    public void getResults() {
+        results_request request = new results_request(cur.id, mapBox_activity.TESTCOORDS.getLatitude(), mapBox_activity.TESTCOORDS.getLongitude());
         try {
             result_response response = NetworkHelper.makeRequestAdapter(getApplicationContext())
                     .create(EndPoints.class).result(request);
             result.addAll(response.result);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace(System.out);
 
         }

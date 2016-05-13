@@ -33,6 +33,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile 'com.anton46:collection-picker:1.0.2'
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:4.0.0@aar') {
         transitive = true
     }

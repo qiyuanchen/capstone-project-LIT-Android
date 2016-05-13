@@ -61,8 +61,8 @@
 
         <service android:name="com.mapbox.mapboxsdk.telemetry.TelemetryService" />
 
-
-        <activity android:name=".Activities.new_account_activity"></activity>
+        <activity android:name=".Activities.new_account_activity" />
+        <activity android:name=".Activities.picker_activity"></activity>
     </application>
 
 </manifest>
