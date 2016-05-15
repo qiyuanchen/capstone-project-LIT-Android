@@ -221,7 +221,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void startMapsActivity() {
-        if (cur.new_user) {
+        if (!cur.new_user) {
             startSettingsActivity();
         } else {
             mapBox_activity.callMe(this, cur.getID(), longitude, latitude, result);

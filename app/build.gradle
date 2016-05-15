@@ -20,6 +20,9 @@ android {
     }
     productFlavors {
     }
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
 }
 
 dependencies {
@@ -34,6 +37,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'com.anton46:collection-picker:1.0.2'
+    compile 'com.github.Kennyc1012:BottomSheet:2.1.2'
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:4.0.0@aar') {
         transitive = true
     }

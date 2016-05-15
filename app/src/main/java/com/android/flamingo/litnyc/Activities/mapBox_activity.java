@@ -3,12 +3,14 @@ package com.android.flamingo.litnyc.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 
 import com.android.flamingo.litnyc.Network.result_response;
 import com.android.flamingo.litnyc.R;
+import com.kennyc.bottomsheet.BottomSheet;
+import com.kennyc.bottomsheet.BottomSheetListener;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -36,7 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class mapBox_activity extends AppCompatActivity implements MapboxMap.OnMarkerClickListener {
+public class mapBox_activity extends Activity implements MapboxMap.OnMarkerClickListener,BottomSheetListener {
 
     private MapView mapView;
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -200,7 +204,6 @@ public class mapBox_activity extends AppCompatActivity implements MapboxMap.OnMa
         // inflate layout
         View view = getLayoutInflater().inflate(R.layout.sheet, null);
         //init view here
-
         TextView name=(TextView)view.findViewById(R.id.location_name);
         TextView address =(TextView)view.findViewById(R.id.location_address);
         name.setText(r.name+"("+r.category+")");
@@ -209,6 +212,10 @@ public class mapBox_activity extends AppCompatActivity implements MapboxMap.OnMa
         addres=addres.replace("]","");
         addres=addres.replace(",","\n");
         address.setText(addres);
+        new BottomSheet.Builder(this,R.style.BottomSheet_Custom)
+                .setView(view)
+                .show();
+        /*
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.show();
         mBottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -216,7 +223,7 @@ public class mapBox_activity extends AppCompatActivity implements MapboxMap.OnMa
             public void onDismiss(DialogInterface dialog) {
                 mBottomSheetDialog = null;
             }
-        });
+        });*/
     }
 
 
@@ -225,6 +232,23 @@ public class mapBox_activity extends AppCompatActivity implements MapboxMap.OnMa
 
             hashmap.put(itt.id, itt);
         }
+    }
+    @Override
+    public void onSheetDismissed(int which) {
+
+        switch (which) {
+            case BottomSheet.BUTTON_POSITIVE:
+                break;
+
+            case BottomSheet.BUTTON_NEGATIVE:
+                break;
+        }
+    }
+    @Override
+    public void onSheetItemSelected(MenuItem item) {
+    }
+    @Override
+    public void onSheetShown() {
     }
 
 

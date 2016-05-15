@@ -7,4 +7,7 @@
     <color name="sheet_bg">#7d7a7a</color>
     <color name="black">#000000</color>
     <color name="mapbg">#2c393f</color>
+    <color name="colorBackground">#00fafafa</color>
+    <color name="titlebar">#75000000</color>
+    <color name="detailbox">#50000000</color>
 </resources>
