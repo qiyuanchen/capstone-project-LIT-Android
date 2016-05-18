@@ -18,14 +18,14 @@ public class login_response {
         // BINARY VALUES
         public String userName;
         public String password;
-        public Integer Accepts_Credit_Cards;
-        public Integer Good_for_Groups;
-        public Integer Has_TV;
-        public Integer Happy_Hour;
-        public Integer Good_For_Dancing;
-        public Integer Good_for_Kids;
-        public Integer Alcohol;
-        public Integer Smoking;
+        public Double Accepts_Credit_Cards;
+        public Double Good_for_Groups;
+        public Double Has_TV;
+        public Double Happy_Hour;
+        public Double Good_For_Dancing;
+        public Double Good_for_Kids;
+        public Double Alcohol;
+        public Double Smoking;
 
         // MULTI VALUED
         public Noise Noise_Level;
@@ -34,22 +34,22 @@ public class login_response {
 
         public static class Noise {
             public  int id;
-            public Integer Quiet;
-            public Integer Average;
-            public Integer Loud;
-            public Integer Very_Loud;
+            public Double Quiet;
+            public Double Average;
+            public Double Loud;
+            public Double Very_Loud;
             public Noise(){
 
             }
         }
 
         public static class Music_ {
-            public Integer Juke_Box;
-            public Integer DJ;
-            public Integer Karaoke;
-            public Integer Live;
-            public Integer Background;
-            public Integer Music_Videos;
+            public Double Juke_Box;
+            public Double DJ;
+            public Double Karaoke;
+            public Double Live;
+            public Double Background;
+            public Double Music_Videos;
         }
 
     }

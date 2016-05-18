@@ -206,7 +206,9 @@ public class mapBox_activity extends Activity implements MapboxMap.OnMarkerClick
         //init view here
         TextView name=(TextView)view.findViewById(R.id.location_name);
         TextView address =(TextView)view.findViewById(R.id.location_address);
-        name.setText(r.name+"("+r.category+")");
+        TextView cate=(TextView)view.findViewById(R.id.category);
+        cate.setText(r.category);
+        name.setText(r.name);
         String addres=r.location.get("formattedAddress").replace("[","");
         addres=addres.replace("\"","");
         addres=addres.replace("]","");

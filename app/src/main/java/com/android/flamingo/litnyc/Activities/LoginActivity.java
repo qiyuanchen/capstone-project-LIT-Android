@@ -334,7 +334,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            // TODO: ADD ENCRYPTION TO USER INFO
 
             login_request request = new login_request(mEmail, mPassword);
             try {
@@ -354,7 +354,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
 
-            // TODO: register the new account here.
             return true;
         }
 
@@ -439,7 +438,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            // TODO: ADD ENCRYPTION TO USER INFO
 
             boolean result = true;
             login_request request = new login_request(mEmail, mPassword);
@@ -461,7 +460,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
 
-            // TODO: register the new account here.
             return result;
         }
 
