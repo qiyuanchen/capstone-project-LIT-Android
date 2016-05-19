@@ -3,6 +3,6 @@ Android Front end
 
 
 
-![](/screenshot2.png =450x)
-![](/screenshot1.png =450x)
+![Alt text](/screenshot2.png=450x)
+![Alt text](/screenshot1.png=450x)
 
