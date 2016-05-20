@@ -1,5 +1,7 @@
 package com.android.flamingo.litnyc.Network;
 
+import com.android.flamingo.litnyc.Data.user;
+
 import retrofit.http.Body;
 import retrofit.http.Headers;
 import retrofit.http.POST;
@@ -22,4 +24,7 @@ public interface EndPoints {
     @Headers("Content-Type: application/json")
     @POST("/getResult")
     result_response result(@Body results_request request) throws Exception;
+    @Headers("Content-Type: application/json")
+    @POST("/updateAtt")
+    updateresponse uresponse(@Body user user) throws Exception;
 }

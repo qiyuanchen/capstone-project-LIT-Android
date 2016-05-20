@@ -17,7 +17,7 @@ public class login_response {
 
         // BINARY VALUES
         public String userName;
-        public String password;
+        public String pw;
         public Double Accepts_Credit_Cards;
         public Double Good_for_Groups;
         public Double Has_TV;

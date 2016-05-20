@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.android.flamingo.litnyc.Activities.mapBox_activity">
 
-
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapview"

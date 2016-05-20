@@ -2,20 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.android.flamingo.litnyc.Activities.picker_activity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What interests you?"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:layout_marginTop="15dp"/>
     <com.anton46.collectionitempicker.CollectionPicker
         android:id="@+id/collection_item_picker"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cp_cancelIcon="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cp_cancelIcon="@drawable/transparent25"
+        app:cp_addIcon="@drawable/transparent25"
         app:cp_itemBackgroundNormal="@color/sheet_bg"
         app:cp_itemBackgroundPressed="@color/red"
-        app:cp_itemMargin="5dp"
-        app:cp_textPaddingBottom="5dp"
-        app:cp_textPaddingTop="5dp"
-        app:cp_simplified="false" />
+        app:cp_simplified="false"
+        />
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="finished"
+        android:text="Finished"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

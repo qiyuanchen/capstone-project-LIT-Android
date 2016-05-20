@@ -217,14 +217,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void startSettingsActivity() {
-        picker_activity.callMe(this);
+        picker_activity.callMe(this,cur.id);
     }
 
     private void startMapsActivity() {
-        if (!cur.new_user) {
+        if (cur.new_user) {
             startSettingsActivity();
         } else {
-            mapBox_activity.callMe(this, cur.getID(), longitude, latitude, result);
+            mapBox_activity.callMe(this, cur.getID());
         }
     }
 
@@ -365,7 +365,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 finish();
                 //GetMyLocation();
-                getResults();
+               // getResults();
                 startMapsActivity();
 
             } else {
@@ -471,7 +471,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 finish();
                 //GetMyLocation();
-                getResults();
+                //getResults();
                 startMapsActivity();
 
             } else {
@@ -515,7 +515,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         usr.new_user = target.result.new_user;
         usr.Smoking = target.result.Smoking;
         usr.userName = target.result.userName;
-        usr.password = target.result.password;
+        usr.pw = target.result.pw;
         return usr;
 
     }

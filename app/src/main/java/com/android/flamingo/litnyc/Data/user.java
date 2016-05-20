@@ -22,7 +22,7 @@ public class user {
     @DatabaseField
     public String userName;
     @DatabaseField
-    public String password;
+    public String pw;
     @DatabaseField
     public Double Accepts_Credit_Cards;
     @DatabaseField
@@ -40,7 +40,6 @@ public class user {
     @DatabaseField
     public Double Smoking;
 
-    private HashMap<String,Double> map;
 
     // MULTI VALUED
     @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
@@ -76,7 +75,7 @@ public class user {
 
     public user(String first, String last) {
         this.userName = first;
-        this.password = last;
+        this.pw = last;
         newuser();
 
     }
@@ -87,7 +86,7 @@ public class user {
 
     @Override
     public String toString() {
-        return String.format("User[id=%s, userName='%s', password='%s']", id, userName, password);
+        return String.format("User[id=%s, userName='%s', password='%s']", id, userName, pw);
     }
 
     public String getUserName() {
@@ -95,7 +94,7 @@ public class user {
     }
 
     public String getpw() {
-        return password;
+        return pw;
     }
 
     public String getID() {
@@ -103,49 +102,71 @@ public class user {
     }
 
     public void newuser() {
-        Accepts_Credit_Cards = 0.0;
-        Good_for_Groups = 0.0;
-        Has_TV = 0.0;
-        Happy_Hour = 0.0;
-        Good_For_Dancing = 0.0;
-        Good_for_Kids = 0.0;
-        Alcohol = 0.0;
-        Smoking = 0.0;
+        Accepts_Credit_Cards = 1.0;
+        Good_for_Groups = 1.0;
+        Has_TV = 1.0;
+        Happy_Hour = 1.0;
+        Good_For_Dancing = 1.0;
+        Good_for_Kids = 1.0;
+        Alcohol = 1.0;
+        Smoking = 1.0;
         new_user = true;
-        Noise_Level.Average=0.0;
-        Noise_Level.Loud=0.0;
-        Noise_Level.Quiet=0.0;
-        Noise_Level.Very_Loud=0.0;
-        map=new HashMap<>();
-        map.put("Accepts_Credit_Cards",Accepts_Credit_Cards);
-        map.put("Good_for_Groups",Good_for_Groups);
-        map.put("Has_TV",Has_TV);
-        map.put("Happy_Hour",Happy_Hour);
-        map.put("Good_For_Dancing",Good_For_Dancing);
-        map.put("Good_for_Kids",Good_for_Kids);
-        map.put("Alcohol",Alcohol);
-        map.put("Smoking",Smoking);
-        map.put("Average",Noise_Level.Average);
-        map.put("Loud",Noise_Level.Loud);
-        map.put("Quiet",Noise_Level.Quiet);
-        map.put("Very_Loud",Noise_Level.Very_Loud);
+        Noise_Level.Average=1.0;
+        Noise_Level.Loud=1.0;
+        Noise_Level.Quiet=1.0;
+        Noise_Level.Very_Loud=1.0;
+
         //Music
 		/*
-		Music.Background=0.0;
-		Music.DJ=0.0;
-		Music.Juke_Box=0.0;
-		Music.Karaoke=0.0;
-		Music.Live=0.0;
-		Music.Music_Videos=0.0;*/
+		Music.Background=1.0;
+		Music.DJ=1.0;
+		Music.Juke_Box=1.0;
+		Music.Karaoke=1.0;
+		Music.Live=1.0;
+		Music.Music_Videos=1.0;*/
 
     }
-    public void incrementAtt(String att){
+    public void incrementAtt(String att,double delta){
         switch (att){
-            case "Accepts_Credit_cards":
-                this.Accepts_Credit_Cards++;
+            case "Accepts Credit Cards":
+                this.Accepts_Credit_Cards+=delta;
                 break;
-            case "Good_for_Groups":
-                this.Good_for_Groups++;
+            case "Good for Groups":
+                this.Good_for_Groups+=delta;
+                break;
+            case"Has TV":
+                this.Has_TV+=delta;
+                break;
+            case"Happy Hour":
+                this.Happy_Hour+=delta;
+                break;
+            case"Good for Dancing":
+                this.Good_For_Dancing+=delta;
+                break;
+            case"Alcohol":
+                this.Alcohol+=delta;
+                break;
+            case"Good for Kids":
+                this.Good_for_Kids+=delta;
+                break;
+            case"Smoking":
+                this.Smoking+=delta;
+                break;
+            case"Average":
+                this.Noise_Level.Average+=delta;
+                break;
+            case"Loud":
+                this.Noise_Level.Loud+=delta;
+                break;
+            case"Quiet":
+                this.Noise_Level.Quiet+=delta;
+                break;
+            case"Very Loud":
+                this.Noise_Level.Very_Loud+=delta;
+                break;
+            default:
+                break;
+
         }
     }
 
